@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService {
 			conn = DatabaseUtil.getConnection();
 			User user = null;
 			String sql = "SELECT * FROM usertable WHERE userName = ?";
-			PreparedStatement ptmt = conn.prepareStatement(sql); // 预编译SQL，减少sql执行
+			PreparedStatement ptmt = conn.prepareStatement(sql);
 			ptmt.setString(1, userName);
 			ResultSet rs = ptmt.executeQuery();
 			while (rs.next()) {

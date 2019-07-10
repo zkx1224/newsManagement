@@ -1,9 +1,7 @@
 package com.hbase.test.servlet.Dao;
 
-
 import java.sql.SQLException;
 import java.util.List;
-
 import com.hbase.test.servlet.entities.User;
 
 
