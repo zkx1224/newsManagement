@@ -65,10 +65,34 @@ public class UserServiceImpl implements UserService {
 			DatabaseUtil.closeAll(conn, null, null);
 		}
 	}
-	
+
+	//查询成功，则返回user信息，返回null则代表没有该用户
 	@Override
 	public User getUserByUserName(String userName) throws SQLException {
 		Connection conn = null;
-		return null;
+		User user = null;
+		try {
+			conn = DatabaseUtil.getConnection();
+			String sql = "SELECT * FROM usertable WHERE userName = ?";
+			PreparedStatement ptmt = conn.prepareStatement(sql);
+			ptmt.setString(1, userName);
+			ResultSet rs = ptmt.executeQuery();
+			while (rs.next()) {
+				user=new User();
+				user.setUserName(rs.getString("userName"));
+				user.setUserSex(rs.getString("userSex"));
+				user.setUserEmail(rs.getString("userEmail"));
+				user.setUserPassword(rs.getString("userPassword"));
+				user.setUserBirthday(rs.getDate("userBirthday"));
+				user.setUserFlag(rs.getInt("userFlag"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			DatabaseUtil.closeAll(conn, null, null);
+		}
+		return user;
+
 	}
 }
