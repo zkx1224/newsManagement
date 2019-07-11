@@ -1,10 +1,4 @@
-<%@ page import="javafx.scene.control.Alert" %><%--
-  Created by IntelliJ IDEA.
-  User: zkx
-  Date: 2019/7/10
-  Time: 16:08
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="javafx.scene.control.Alert" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%
@@ -24,53 +18,48 @@
     <meta http-equiv="expires" content="0">
     <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
     <meta http-equiv="description" content="This is my page">
-    <!--
-    <link rel="stylesheet" type="text/css" href="styles.css">
-    -->
+    <script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
     <script>
         function check(){
             var userName = $("#userName").val();
             var passWord = $("#passWord").val();
-            if(!userName>4||userName<16){
-                alert("用户名超出4-16个字符");
-                return false;
-            }
-            if(!passWord<6||passWord>12){
+            var regex = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{4,16}$";
+            if(userName.match(regex)==null){
+                alert("只能输入字母或数字，4-16个字符");
+            }if(passWord.length<6||passWord.length>12){
                 alert("密码超出6-12位");
-                return false;
             }
-            return true;
         }
     </script>
     <%
         String error = (String) request.getAttribute("succ");
         if(error!=null){
             if (error.equals("success")){
-               System.out.print("增加成功");
+                System.out.print("增加成功");
             }else if(error.equals("error")){
-	    System.out.print("增加失败");
-	    }
+                System.out.println("添加失败");
+            }
         }
     %>
 </head>
 
 <body>
-<form action="/regis" method="post" onsubmit="return check();">
-    <table   border="0" cellpadding="0" cellspacing="0" align="center" width="530">
+<form action="/regis" method="post">
+    <table border="0" cellpadding="0" cellspacing="0" align="center" width="530">
         <tr>
             <td height="108" colspan="2"><img src="../images/top.jpg"></td>
         </tr>
         <tr>
             <td width="107" height="36">用户名：</td>
-            <td width="524"><input name="userName" type="text" maxlength="16">只能输入字母或数字，4-16个字符</td>
+            <td width="524"><input name="userName" type="text" maxlength="16" id="userName">只能输入字母或数字，4-16个字符</td>
         </tr>
         <tr>
             <td width="107" height="36">密码：</td>
-            <td width="524"><input name="passWord" type="password">密码长度6-12位</td>
+            <td width="524"><input name="passWord" type="password" id="passWord">密码长度6-12位</td>
         </tr>
         <tr>
             <td width="107" height="36">确认密码：</td>
-            <td width="524"><input name="passWord" type="password"></td>
+            <td width="524"><input name="passWord" type="password" class="passWord1"></td>
         </tr>
         <tr>
             <td width="107" height="36">性别：</td>
@@ -87,11 +76,11 @@
         <tr>
             <td width="107" height="36">出生日期：</td>
             <td width="524">
-                <input name="data" type="date">
+                <input name="date" type="date">
             </td>
         </tr>
         <tr><td colspan="2" align="center">
-            <input type="submit"value="同意以下协议条款并提交">
+            <input type="submit" value="同意以下协议条款并提交" onclick="check()">
         </td></tr>
         <tr><td colspan="2">
   <textarea cols="" rows="" readonly="readonly" style="width:480px;height:110px;font-size:12px;color:#666">
