@@ -47,13 +47,15 @@
         if(error!=null){
             if (error.equals("success")){
                System.out.print("增加成功");
-            }
+            }else if(error.equals("error")){
+	    System.out.print("增加失败");
+	    }
         }
     %>
 </head>
 
 <body>
-<form action="info.jsp" method="post" onsubmit="return check();">
+<form action="/regis" method="post" onsubmit="return check();">
     <table   border="0" cellpadding="0" cellspacing="0" align="center" width="530">
         <tr>
             <td height="108" colspan="2"><img src="../images/top.jpg"></td>
