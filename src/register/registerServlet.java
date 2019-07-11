@@ -24,8 +24,25 @@ public class registerServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		req.setCharacterEncoding("UTF-8");
+        String userName = req.getParameter("userName");
+        String passWord = req.getParameter("passWord");
+        String sex = req.getParameter("sex");
+        String email = req.getParameter("email");
+        Data data = req.getParameter("data");
+        UserService userService =new UserServiceImpl();
+        User user = new User(userName,passWord,sex,email,data);
+        boolean userNameIsExit = userService.checkUserNameIsExit("userName");
+        if(userNameIsExit){
+            userService.addUser(user);
+            req.setAttribute("succ","success");
+            System.out.println("添加成功！");
+        }else{
+            req.setAttribute("succ","error");
+            System.out.println("用户名已存在！");
+        }
+        resp.sendRedirect("regis.jsp");
+
 	}
 
 	/**
