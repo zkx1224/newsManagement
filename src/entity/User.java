@@ -6,13 +6,13 @@ import java.util.Date;
  * 用户 实体类
  */
 public class User implements Serializable {
-    private static final long serialVersionUID = 435894070589975762L;
-    private String userName;
-    private String userSex;
-    private String userPassword;
-    private String userEmail;
-    private Date userBirthday;
-    private Integer userFlag;
+	private static final long serialVersionUID = 435894070589975762L;
+	private String userName;
+	private String userSex;
+	private String userPassword;
+	private String userEmail;
+	private Date userBirthday;
+	private Integer userFlag;
 	public String getUserName() {
 		return userName;
 	}
@@ -49,5 +49,12 @@ public class User implements Serializable {
 	public void setUserFlag(Integer userFlag) {
 		this.userFlag = userFlag;
 	}
-	
+	public User() {
+	}
+	public User(String userName, String userSex, String userPassword, String userEmail) {
+		this.userName = userName;
+		this.userSex = userSex;
+		this.userPassword = userPassword;
+		this.userEmail = userEmail;
+	}
 }
